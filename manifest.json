@@ -1,0 +1,20 @@
+{
+  "name": "SwaKosh (स्वकोश) — Smart Lists, Notes, Card OCR & Post-Quantum KeePass Vault",
+  "short_name": "SwaKosh",
+  "description": "Zero-knowledge personal & family utility app with Master Lists, Online Price Comparison, Rich Notes, Visiting Card OCR, and Post-Quantum KeePass (.kdbx) Vault.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1116",
+  "theme_color": "#0d9488",
+  "orientation": "portrait-primary",
+  "lang": "en-IN",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "security", "shopping", "utilities"]
+}

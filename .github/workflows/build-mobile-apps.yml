@@ -1,0 +1,47 @@
+name: Build Android APK & iOS App Bundle (MasterVault)
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-android-apk:
+    name: Build Installable Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Java JDK 17 for Android Gradle
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Capacitor Dependencies & Prepare Web Assets
+        run: |
+          npm install
+          npm run build:www
+          if [ ! -d "android" ]; then
+            npx cap add android
+          else
+            npx cap sync android
+          fi
+
+      - name: Build Debug APK (Directly Installable on Any Android Phone)
+        working-directory: ./android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload Ready-to-Install MasterVault.apk Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MasterVault-Android-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
